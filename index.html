@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		
+.roundFace{
+	border: 1px solid black;
+	height: 300px;
+	width: 300px;
+	border-radius: 50%;
+	position: relative;
+}
+.hand{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 10px;
+	transform: translate(0%, -50%);
+	transform-origin: 0% 50%;
+}
+#minuteHand{
+	background-color: red;
+	width: 45%;
+}
+#hourHand{
+	background-color: lavender;
+	width: 20%;
+	transform: translate(0%, -50%);
+}
+#secondHand{
+	background-color: black;
+	width: 48%;
+	height: 5px;
+	transform: translate(0%, -50%);
+}
+
+	</style>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+<script type="text/javascript">
+
+var timer = null;
+var counter = 0;
+
+function initializeApplication(){
+	timer = setInterval( updateClock, 1000);
+}
+
+function updateClock(){
+	var date = new Date();
+	var seconds = date.getSeconds();
+	var secondDegrees = seconds * 6 - 90;
+	console.log("seconds " + seconds+ " secondDegrees: "+secondDegrees);
+	$("#secondHand").css('transform','translate(0%, -50%) rotateZ('+secondDegrees+'deg)');
+	//console.log('running updateClock' + seconds);
+
+	var minutes = date.getMinutes();
+	var minuteDegrees = minutes * 6 - 90;
+	$("#minuteHand").css('transform','translate(0%, -50%) rotateZ('+minuteDegrees+'deg)');
+
+	var hours = date.getHours();
+	var hourDegrees = hours * 30 - 90;
+	$("#hourHand").css('transform','translate(0%, -50%) rotateZ('+hourDegrees+'deg)');
+
+
+}
+
+$(document).ready( initializeApplication );
+
+
+
+</script>
+
+</head>
+<body>
+
+<div id="clockBody" class="roundFace">  
+	<div id="secondHand" class="hand"></div>
+	<div id="minuteHand" class="hand"></div>
+	<div id="hourHand" class="hand"></div>
+</div>
+
+</body>
+</html>
